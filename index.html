@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="th" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DORAKI SHOP - Minecraft Skin & Figura Store</title>
+    <!-- Favicon โลโก้บนแท็บเบราว์เซอร์ -->
+    <link rel="icon" type="image/jpeg" href="Doraki_shop_LOGO.png">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Kanit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            400: '#38bdf8',
+                            500: '#0088ff',
+                            600: '#0284c7',
+                            900: '#0c4a6e',
+                            cyan: '#00d2ff'
+                        },
+                        darkbg: '#090d16',
+                        sidebarbg: '#0f172a',
+                        cardbg: '#161e31',
+                        cardborder: '#222f47'
+                    },
+                    fontFamily: {
+                        sans: ['Kanit', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #090d16; }
+        ::-webkit-scrollbar-thumb { background: rgb(252, 252, 252); border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #0088ff; }
+
+        /* ซ่อนลูกศรขึ้นลงของ input number */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: rgba(22, 30, 49, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 210, 255, 0.4);
+            box-shadow: 0 0 20px rgba(0, 136, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .glow-text {
+            text-shadow: 0 0 12px rgba(0, 210, 255, 0.5);
+        }
+
+        .glow-btn {
+            box-shadow: 0 0 15px rgba(0, 136, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+        .glow-btn:hover {
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.7);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgba(0, 136, 255, 0.2) 0%, rgba(0, 210, 255, 0.1) 100%);
+            border-left: 4px solid #00d2ff;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="bg-darkbg text-slate-100 font-sans min-h-screen flex flex-col overflow-x-hidden selection:bg-brand-500 selection:text-white text-base">
+
+    <!-- Header Navbar with Custom Logo -->
+    <header class="sticky top-0 z-40 glass-panel border-b border-slate-800/80 px-4 md:px-8 py-3.5">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-3.5">
+                <img src="Doraki_shop_LOGO.png" alt="Doraki Shop Logo" class="w-14 h-14 rounded-xl object-cover shadow-lg shadow-brand-500/30 border border-brand-cyan/40" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=60x60&data=Logo';">
+                <div>
+                    <h1 class="font-bold text-xl md:text-2xl tracking-wide bg-gradient-to-r from-white via-slate-200 to-brand-cyan bg-clip-text text-transparent">DORAKI SHOP</h1>
+                    <p class="text-sm text-slate-400">Minecraft Skin & Figura Commission</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-3 md:space-x-4">
+                <div class="hidden sm:flex items-center text-sm bg-slate-900/80 px-3.5 py-2 rounded-xl border border-slate-800 text-slate-300">
+                    <i class="fa-solid fa-bolt text-amber-400 mr-2 text-base"></i>
+                    <span>ระบบงานเร่ง (ตัวคูณ)</span>
+                </div>
+                <button onclick="toggleModal('rules-modal')" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm transition border border-slate-700 flex items-center font-medium">
+                    <i class="fa-solid fa-book-open mr-2 text-brand-cyan"></i> กฎและเงื่อนไข
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dashboard Layout -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Sidebar Navigation (Column 3) -->
+        <aside class="lg:col-span-3 space-y-4">
+            <div class="glass-panel rounded-2xl p-3.5 border border-slate-800 space-y-1.5">
+                <div class="px-3 py-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                    หมวดหมู่สินค้า (Categories)
+                </div>
+
+                <button onclick="switchTab('zone-skin')" id="tab-zone-skin" class="tab-btn active w-full text-left px-4 py-3.5 rounded-xl text-sm font-medium text-slate-300 hover:bg-slate-800/60 transition flex items-center justify-between">
+                    <span class="flex items-center"><i class="fa-solid fa-shirt text-brand-cyan w-6 text-base"></i> 1. โซน Skin</span>
+                    <span class="text-xs bg-brand-500/20 text-brand-cyan px-2.5 py-0.5 rounded-full font-semibold">สกิน</span>
+                </button>
+
+                <button onclick="switchTab('zone-figura')" id="tab-zone-figura" class="tab-btn w-full text-left px-4 py-3.5 rounded-xl text-sm font-medium text-slate-300 hover:bg-slate-800/60 transition flex items-center justify-between">
+                    <span class="flex items-center"><i class="fa-solid fa-hat-wizard text-purple-400 w-6 text-base"></i> 2. โซน Figura Model</span>
+                    <span class="text-xs bg-purple-500/20 text-purple-300 px-2.5 py-0.5 rounded-full font-semibold">โมเดล</span>
+                </button>
+
+                <button onclick="switchTab('zone-weapons')" id="tab-zone-weapons" class="tab-btn w-full text-left px-4 py-3.5 rounded-xl text-sm font-medium text-slate-300 hover:bg-slate-800/60 transition flex items-center justify-between">
+                    <span class="flex items-center"><i class="fa-solid fa-shield-cat text-rose-400 w-6 text-base"></i> 3. โซน Weapons</span>
+                    <span class="text-xs bg-rose-500/20 text-rose-300 px-2.5 py-0.5 rounded-full font-semibold">อาวุธ</span>
+                </button>
+
+                <button onclick="switchTab('zone-photo')" id="tab-zone-photo" class="tab-btn w-full text-left px-4 py-3.5 rounded-xl text-sm font-medium text-slate-300 hover:bg-slate-800/60 transition flex items-center justify-between">
+                    <span class="flex items-center"><i class="fa-solid fa-camera-retro text-amber-400 w-6 text-base"></i> 4. โซน Photo & Video</span>
+                    <span class="text-xs bg-amber-500/20 text-amber-300 px-2.5 py-0.5 rounded-full font-semibold">ถ่ายภาพ</span>
+                </button>
+
+                <button onclick="switchTab('zone-showcase')" id="tab-zone-showcase" class="tab-btn w-full text-left px-4 py-3.5 rounded-xl text-sm font-medium text-slate-300 hover:bg-slate-800/60 transition flex items-center justify-between">
+                    <span class="flex items-center"><i class="fa-solid fa-cubes-stacked text-emerald-400 w-6 text-base"></i> 5. โซน Showcase & Java</span>
+                    <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2.5 py-0.5 rounded-full font-semibold">Showcase</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area (Column 6) -->
+        <section class="lg:col-span-6 space-y-6">
+
+            <!-- ZONE 1: SKIN & SCALE TABLE -->
+            <div id="zone-skin" class="zone-content space-y-6">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+                    <h2 class="text-xl font-bold text-white flex items-center">
+                        <i class="fa-solid fa-shirt text-brand-cyan mr-2.5"></i> 1. เรทสั่งทำสกินตาม Scale
+                    </h2>
+                    <span class="text-sm text-slate-400">เลือกจำนวนชิ้น</span>
+                </div>
+
+                <!-- ตาราง Scale & Part ปรับปุ่ม + / - -->
+                <div class="glass-panel rounded-2xl p-4 overflow-x-auto">
+                    <table class="w-full text-left text-base text-slate-300">
+                        <thead class="bg-slate-900/80 text-brand-cyan text-xs uppercase">
+                            <tr>
+                                <th class="p-3 rounded-l-lg">Scale</th>
+                                <th class="p-3 text-center">เต็มตัว</th>
+                                <th class="p-3 text-center">แค่ส่วนหัว</th>
+                                <th class="p-3 text-center rounded-r-lg">แค่ส่วนชุด</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800/60">
+                            <!-- Scale 64 -->
+                            <tr>
+                                <td class="p-3 font-bold text-white text-base">64x64</td>
+                                <td class="p-3 text-center">
+                                    <span class="text-sm text-slate-400 block font-medium mb-1">50฿</span>
+                                    <div class="flex items-center justify-center space-x-1.5">
+                                        <button onclick="changeSkinQty('64-full', -1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">-</button>
+                                        <input type="number" id="qty-64-full" min="0" value="0" oninput="calculateTotal()" class="w-10 bg-slate-900 border border-slate-700 rounded-lg text-center text-white py-1 text-sm font-semibold">
+                                        <button onclick="changeSkinQty('64-full', 1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">+</button>
+                                    </div>
+                                </td>
+                                <td class="p-3 text-center">
+                                    <span class="text-sm text-slate-400 block font-medium mb-1">20฿</span>
+                                    <div class="flex items-center justify-center space-x-1.5">
+                                        <button onclick="changeSkinQty('64-head', -1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">-</button>
+                                        <input type="number" id="qty-64-head" min="0" value="0" oninput="calculateTotal()" class="w-10 bg-slate-900 border border-slate-700 rounded-lg text-center text-white py-1 text-sm font-semibold">
+                                        <button onclick="changeSkinQty('64-head', 1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">+</button>
+                                    </div>
+                                </td>
+                                <td class="p-3 text-center">
+                                    <span class="text-sm text-slate-400 block font-medium mb-1">40฿</span>
+                                    <div class="flex items-center justify-center space-x-1.5">
+                                        <button onclick="changeSkinQty('64-outfit', -1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">-</button>
+                                        <input type="number" id="qty-64-outfit" min="0" value="0" oninput="calculateTotal()" class="w-10 bg-slate-900 border border-slate-700 rounded-lg text-center text-white py-1 text-sm font-semibold">
+                                        <button onclick="changeSkinQty('64-outfit', 1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">+</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Scale 128 -->
+                            <tr>
+                                <td class="p-3 font-bold text-white text-base">128x128</td>
+                                <td class="p-3 text-center">
+                                    <span class="text-sm text-slate-400 block font-medium mb-1">150฿</span>
+                                    <div class="flex items-center justify-center space-x-1.5">
+                                        <button onclick="changeSkinQty('128-full', -1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">-</button>
+                                        <input type="number" id="qty-128-full" min="0" value="0" oninput="calculateTotal()" class="w-10 bg-slate-900 border border-slate-700 rounded-lg text-center text-white py-1 text-sm font-semibold">
+                                        <button onclick="changeSkinQty('128-full', 1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">+</button>
+                                    </div>
+                                </td>
+                                <td class="p-3 text-center">
+                                    <span class="text-sm text-slate-400 block font-medium mb-1">50฿</span>
+                                    <div class="flex items-center justify-center space-x-1.5">
+                                        <button onclick="changeSkinQty('128-head', -1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">-</button>
+                                        <input type="number" id="qty-128-head" min="0" value="0" oninput="calculateTotal()" class="w-10 bg-slate-900 border border-slate-700 rounded-lg text-center text-white py-1 text-sm font-semibold">
+                                        <button onclick="changeSkinQty('128-head', 1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">+</button>
+                                    </div>
+                                </td>
+                                <td class="p-3 text-center">
+                                    <span class="text-sm text-slate-400 block font-medium mb-1">80฿</span>
+                                    <div class="flex items-center justify-center space-x-1.5">
+                                        <button onclick="changeSkinQty('128-outfit', -1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">-</button>
+                                        <input type="number" id="qty-128-outfit" min="0" value="0" oninput="calculateTotal()" class="w-10 bg-slate-900 border border-slate-700 rounded-lg text-center text-white py-1 text-sm font-semibold">
+                                        <button onclick="changeSkinQty('128-outfit', 1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">+</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Scale 512 -->
+                            <tr>
+                                <td class="p-3 font-bold text-white text-base">512x512</td>
+                                <td class="p-3 text-center">
+                                    <span class="text-sm text-slate-400 block font-medium mb-1">200฿</span>
+                                    <div class="flex items-center justify-center space-x-1.5">
+                                        <button onclick="changeSkinQty('512-full', -1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">-</button>
+                                        <input type="number" id="qty-512-full" min="0" value="0" oninput="calculateTotal()" class="w-10 bg-slate-900 border border-slate-700 rounded-lg text-center text-white py-1 text-sm font-semibold">
+                                        <button onclick="changeSkinQty('512-full', 1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">+</button>
+                                    </div>
+                                </td>
+                                <td class="p-3 text-center">
+                                    <span class="text-sm text-slate-400 block font-medium mb-1">90฿</span>
+                                    <div class="flex items-center justify-center space-x-1.5">
+                                        <button onclick="changeSkinQty('512-head', -1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">-</button>
+                                        <input type="number" id="qty-512-head" min="0" value="0" oninput="calculateTotal()" class="w-10 bg-slate-900 border border-slate-700 rounded-lg text-center text-white py-1 text-sm font-semibold">
+                                        <button onclick="changeSkinQty('512-head', 1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">+</button>
+                                    </div>
+                                </td>
+                                <td class="p-3 text-center">
+                                    <span class="text-sm text-slate-400 block font-medium mb-1">150฿</span>
+                                    <div class="flex items-center justify-center space-x-1.5">
+                                        <button onclick="changeSkinQty('512-outfit', -1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">-</button>
+                                        <input type="number" id="qty-512-outfit" min="0" value="0" oninput="calculateTotal()" class="w-10 bg-slate-900 border border-slate-700 rounded-lg text-center text-white py-1 text-sm font-semibold">
+                                        <button onclick="changeSkinQty('512-outfit', 1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">+</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Scale 1024 -->
+                            <tr>
+                                <td class="p-3 font-bold text-white text-base">1024x1024</td>
+                                <td class="p-3 text-center">
+                                    <span class="text-sm text-slate-400 block font-medium mb-1">250฿</span>
+                                    <div class="flex items-center justify-center space-x-1.5">
+                                        <button onclick="changeSkinQty('1024-full', -1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">-</button>
+                                        <input type="number" id="qty-1024-full" min="0" value="0" oninput="calculateTotal()" class="w-10 bg-slate-900 border border-slate-700 rounded-lg text-center text-white py-1 text-sm font-semibold">
+                                        <button onclick="changeSkinQty('1024-full', 1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">+</button>
+                                    </div>
+                                </td>
+                                <td class="p-3 text-center">
+                                    <span class="text-sm text-slate-400 block font-medium mb-1">120฿</span>
+                                    <div class="flex items-center justify-center space-x-1.5">
+                                        <button onclick="changeSkinQty('1024-head', -1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">-</button>
+                                        <input type="number" id="qty-1024-head" min="0" value="0" oninput="calculateTotal()" class="w-10 bg-slate-900 border border-slate-700 rounded-lg text-center text-white py-1 text-sm font-semibold">
+                                        <button onclick="changeSkinQty('1024-head', 1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">+</button>
+                                    </div>
+                                </td>
+                                <td class="p-3 text-center">
+                                    <span class="text-sm text-slate-400 block font-medium mb-1">200฿</span>
+                                    <div class="flex items-center justify-center space-x-1.5">
+                                        <button onclick="changeSkinQty('1024-outfit', -1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">-</button>
+                                        <input type="number" id="qty-1024-outfit" min="0" value="0" oninput="calculateTotal()" class="w-10 bg-slate-900 border border-slate-700 rounded-lg text-center text-white py-1 text-sm font-semibold">
+                                        <button onclick="changeSkinQty('1024-outfit', 1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base transition flex items-center justify-center border border-slate-700">+</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <label class="glass-card p-4 rounded-xl cursor-pointer flex justify-between items-center border border-slate-800">
+                        <input type="checkbox" class="addon-check hidden peer" data-name="เรทสกิน หูและหาง" data-price="250" onchange="calculateTotal()">
+                        <div>
+                            <span class="text-sm font-semibold block peer-checked:text-brand-cyan">เรทสกิน หูและหาง</span>
+                            <span class="text-xs text-slate-400">ตกแต่งพิเศษ หูและหาง</span>
+                        </div>
+                        <span class="text-sm bg-slate-800 px-3 py-1 rounded-lg text-brand-cyan font-bold">250 ฿</span>
+                    </label>
+
+                    <label class="glass-card p-4 rounded-xl cursor-pointer flex justify-between items-center border border-slate-800">
+                        <input type="checkbox" class="addon-check hidden peer" data-name="เรทสกิน Yume Custom" data-price="300" onchange="calculateTotal()">
+                        <div>
+                            <span class="text-sm font-semibold block peer-checked:text-brand-cyan">เรทสกิน Yume</span>
+                            <span class="text-xs text-slate-400">สไตล์ Yume Custom</span>
+                        </div>
+                        <span class="text-sm bg-slate-800 px-3 py-1 rounded-lg text-brand-cyan font-bold">300 ฿</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- ZONE 2: FIGURA MODEL -->
+            <div id="zone-figura" class="zone-content hidden space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+                    <h2 class="text-xl font-bold text-white flex items-center">
+                        <i class="fa-solid fa-hat-wizard text-purple-400 mr-2.5"></i> 2. โซน Figura Model & ชิ้นส่วนเสริม
+                    </h2>
+                    <span class="text-sm text-slate-400">Figura Category</span>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3.5">
+                    <label class="glass-card p-3.5 rounded-xl cursor-pointer block">
+                        <input type="checkbox" class="addon-check hidden peer" data-name="Figura: หมวก" data-price="160" onchange="calculateTotal()">
+                        <div class="flex justify-between items-center peer-checked:text-purple-300">
+                            <span class="text-sm font-medium">หมวก</span>
+                            <span class="text-xs bg-slate-800 px-2.5 py-1 rounded text-slate-300 font-semibold">160฿</span>
+                        </div>
+                    </label>
+                    <label class="glass-card p-3.5 rounded-xl cursor-pointer block">
+                        <input type="checkbox" class="addon-check hidden peer" data-name="Figura: เสื้อคลุม" data-price="250" onchange="calculateTotal()">
+                        <div class="flex justify-between items-center peer-checked:text-purple-300">
+                            <span class="text-sm font-medium">เสื้อคลุม</span>
+                            <span class="text-xs bg-slate-800 px-2.5 py-1 rounded text-slate-300 font-semibold">250฿</span>
+                        </div>
+                    </label>
+                    <label class="glass-card p-3.5 rounded-xl cursor-pointer block">
+                        <input type="checkbox" class="addon-check hidden peer" data-name="Figura: ผ้าพันคอ" data-price="90" onchange="calculateTotal()">
+                        <div class="flex justify-between items-center peer-checked:text-purple-300">
+                            <span class="text-sm font-medium">ผ้าพันคอ</span>
+                            <span class="text-xs bg-slate-800 px-2.5 py-1 rounded text-slate-300 font-semibold">90฿</span>
+                        </div>
+                    </label>
+                    <label class="glass-card p-3.5 rounded-xl cursor-pointer block">
+                        <input type="checkbox" class="addon-check hidden peer" data-name="Figura: แว่น" data-price="50" onchange="calculateTotal()">
+                        <div class="flex justify-between items-center peer-checked:text-purple-300">
+                            <span class="text-sm font-medium">แว่น</span>
+                            <span class="text-xs bg-slate-800 px-2.5 py-1 rounded text-slate-300 font-semibold">50฿</span>
+                        </div>
+                    </label>
+                    <label class="glass-card p-3.5 rounded-xl cursor-pointer block">
+                        <input type="checkbox" class="addon-check hidden peer" data-name="Figura: กิ๊ป" data-price="40" onchange="calculateTotal()">
+                        <div class="flex justify-between items-center peer-checked:text-purple-300">
+                            <span class="text-sm font-medium">กิ๊ป</span>
+                            <span class="text-xs bg-slate-800 px-2.5 py-1 rounded text-slate-300 font-semibold">40฿</span>
+                        </div>
+                    </label>
+                    <label class="glass-card p-3.5 rounded-xl cursor-pointer block">
+                        <input type="checkbox" class="addon-check hidden peer" data-name="Figura: โบว์" data-price="40" onchange="calculateTotal()">
+                        <div class="flex justify-between items-center peer-checked:text-purple-300">
+                            <span class="text-sm font-medium">โบว์</span>
+                            <span class="text-xs bg-slate-800 px-2.5 py-1 rounded text-slate-300 font-semibold">40฿</span>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                    <div class="glass-card p-3.5 rounded-xl space-y-2 border border-slate-800">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-slate-200">เขา (100-300฿)</span>
+                            <span id="horn-price-val" class="text-xs text-purple-300 font-semibold">ปิดใช้งาน</span>
+                        </div>
+                        <input type="range" id="horn-range" min="0" max="300" step="50" value="0" oninput="updateRangePrice('horn', this.value, [100, 300])" class="w-full accent-purple-500 bg-slate-800 h-2 rounded-lg appearance-none cursor-pointer">
+                    </div>
+                    <div class="glass-card p-3.5 rounded-xl space-y-2 border border-slate-800">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-slate-200">ผ้าคลุม (150-300฿)</span>
+                            <span id="cape-price-val" class="text-xs text-purple-300 font-semibold">ปิดใช้งาน</span>
+                        </div>
+                        <input type="range" id="cape-range" min="0" max="300" step="50" value="0" oninput="updateRangePrice('cape', this.value, [150, 300])" class="w-full accent-purple-500 bg-slate-800 h-2 rounded-lg appearance-none cursor-pointer">
+                    </div>
+                    <div class="glass-card p-3.5 rounded-xl space-y-2 border border-slate-800">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-slate-200">ปีก (200-500฿)</span>
+                            <span id="wing-price-val" class="text-xs text-purple-300 font-semibold">ปิดใช้งาน</span>
+                        </div>
+                        <input type="range" id="wing-range" min="0" max="500" step="50" value="0" oninput="updateRangePrice('wing', this.value, [200, 500])" class="w-full accent-purple-500 bg-slate-800 h-2 rounded-lg appearance-none cursor-pointer">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ZONE 3: WEAPONS -->
+            <div id="zone-weapons" class="zone-content hidden space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+                    <h2 class="text-xl font-bold text-white flex items-center">
+                        <i class="fa-solid fa-shield-cat text-rose-400 mr-2.5"></i> 3. โซน อาวุธ & อุปกรณ์
+                    </h2>
+                    <span class="text-sm text-slate-400">Weapons Category</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div class="glass-card p-3.5 rounded-xl space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium">อาวุธปืน (140-500฿)</span>
+                            <span id="gun-val" class="text-xs text-rose-300 font-semibold">ปิดใช้งาน</span>
+                        </div>
+                        <input type="range" id="gun-range" min="0" max="500" step="20" value="0" oninput="updateWeaponPrice('gun', this.value, [140, 500])" class="w-full accent-rose-500 bg-slate-800 h-2 rounded-lg appearance-none cursor-pointer">
+                    </div>
+                    <div class="glass-card p-3.5 rounded-xl space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium">ดาบ (150-500฿)</span>
+                            <span id="sword-val" class="text-xs text-rose-300 font-semibold">ปิดใช้งาน</span>
+                        </div>
+                        <input type="range" id="sword-range" min="0" max="500" step="25" value="0" oninput="updateWeaponPrice('sword', this.value, [150, 500])" class="w-full accent-rose-500 bg-slate-800 h-2 rounded-lg appearance-none cursor-pointer">
+                    </div>
+                    <div class="glass-card p-3.5 rounded-xl space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium">หอก (150-500฿)</span>
+                            <span id="spear-val" class="text-xs text-rose-300 font-semibold">ปิดใช้งาน</span>
+                        </div>
+                        <input type="range" id="spear-range" min="0" max="500" step="25" value="0" oninput="updateWeaponPrice('spear', this.value, [150, 500])" class="w-full accent-rose-500 bg-slate-800 h-2 rounded-lg appearance-none cursor-pointer">
+                    </div>
+                    <div class="glass-card p-3.5 rounded-xl space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium">ธนู (160-500฿)</span>
+                            <span id="bow-val" class="text-xs text-rose-300 font-semibold">ปิดใช้งาน</span>
+                        </div>
+                        <input type="range" id="bow-range" min="0" max="500" step="20" value="0" oninput="updateWeaponPrice('bow', this.value, [160, 500])" class="w-full accent-rose-500 bg-slate-800 h-1.5 rounded-lg appearance-none cursor-pointer">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ZONE 4: PHOTO & VIDEO -->
+            <div id="zone-photo" class="zone-content hidden space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+                    <h2 class="text-xl font-bold text-white flex items-center">
+                        <i class="fa-solid fa-camera-retro text-amber-400 mr-2.5"></i> 4. โซน ถ่ายภาพ & คลิปวิดีโอ
+                    </h2>
+                    <span class="text-sm text-slate-400">Media Category</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="glass-card p-4 rounded-xl border border-slate-800 flex justify-between items-center">
+                        <div>
+                            <span class="block font-bold text-base text-white">ถ่ายภาพ (Photo)</span>
+                            <span class="text-xs text-slate-400">รูปละ 5 บาท</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="changeQty('photo', -1)" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base flex items-center justify-center border border-slate-700">-</button>
+                            <span id="photo-qty" class="w-7 text-center font-extrabold text-amber-400 text-lg">0</span>
+                            <button onclick="changeQty('photo', 1)" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base flex items-center justify-center border border-slate-700">+</button>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-4 rounded-xl border border-slate-800 flex justify-between items-center">
+                        <div>
+                            <span class="block font-bold text-base text-white">ถ่ายคลิป (Video Clip)</span>
+                            <span class="text-xs text-slate-400">คลิปละ 10 บาท</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="changeQty('video', -1)" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base flex items-center justify-center border border-slate-700">-</button>
+                            <span id="video-qty" class="w-7 text-center font-extrabold text-amber-400 text-lg">0</span>
+                            <button onclick="changeQty('video', 1)" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-base flex items-center justify-center border border-slate-700">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ZONE 5: SHOWCASE & JAVA -->
+            <div id="zone-showcase" class="zone-content hidden space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+                    <h2 class="text-xl font-bold text-white flex items-center">
+                        <i class="fa-solid fa-cubes-stacked text-emerald-400 mr-2.5"></i> 5. โซน Showcase & Java
+                    </h2>
+                    <span class="text-sm text-slate-400">Showcase Category</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <label class="glass-card p-4 rounded-xl cursor-pointer flex justify-between items-center border border-slate-800">
+                        <input type="checkbox" class="addon-check hidden peer" data-name="Showcase หัว" data-price="10" onchange="calculateTotal()">
+                        <div>
+                            <span class="block font-bold text-base peer-checked:text-emerald-400">Showcase หัว</span>
+                            <span class="text-xs text-slate-400">เรทโชว์เคสส่วนหัว 10฿</span>
+                        </div>
+                        <span class="text-sm font-bold bg-slate-800 px-3 py-1 rounded-lg text-emerald-400">10 ฿</span>
+                    </label>
+
+                    <label class="glass-card p-4 rounded-xl cursor-pointer flex justify-between items-center border border-slate-800">
+                        <input type="checkbox" class="addon-check hidden peer" data-name="Showcase ทั้งตัว" data-price="20" onchange="calculateTotal()">
+                        <div>
+                            <span class="block font-bold text-base peer-checked:text-emerald-400">Showcase ทั้งตัว</span>
+                            <span class="text-xs text-slate-400">เรทโชว์เคสเต็มตัว 20฿</span>
+                        </div>
+                        <span class="text-sm font-bold bg-slate-800 px-3 py-1 rounded-lg text-emerald-400">20 ฿</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Rush Job Option (ตัวคูณตามระยะเวลาเร่งด่วน) -->
+            <div class="glass-panel p-4 rounded-xl border border-amber-500/30 bg-amber-500/5 space-y-3">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-400 font-bold text-lg">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-100">รับงานเร่ง (Urgent Order Multiplier)</h4>
+                        <p class="text-xs text-slate-400">เลือกตัวคูณเพิ่มราคาตามความเร่งด่วนของงาน</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-4 gap-2.5 pt-1">
+                    <label class="glass-card p-2.5 rounded-xl cursor-pointer border border-slate-800 text-center block">
+                        <input type="radio" name="rush-job-option" value="1" data-label="งานปกติ (ไม่มีตัวคูณ)" onchange="calculateTotal()" checked class="hidden peer">
+                        <div class="peer-checked:text-amber-400 peer-checked:font-bold text-xs py-1">
+                            <span class="block text-slate-300 peer-checked:text-amber-400">ปกติ</span>
+                            <span class="text-[11px] text-slate-400">ราคาปกติ</span>
+                        </div>
+                    </label>
+
+                    <label class="glass-card p-2.5 rounded-xl cursor-pointer border border-slate-800 text-center block">
+                        <input type="radio" name="rush-job-option" value="2" data-label="งานเร่งภายใน 5 วัน (x2)" onchange="calculateTotal()" class="hidden peer">
+                        <div class="peer-checked:text-amber-400 peer-checked:font-bold text-xs py-1">
+                            <span class="block text-slate-300 peer-checked:text-amber-400">ภายใน 5 วัน</span>
+                            <span class="text-[11px] text-amber-400 font-bold">x2</span>
+                        </div>
+                    </label>
+
+                    <label class="glass-card p-2.5 rounded-xl cursor-pointer border border-slate-800 text-center block">
+                        <input type="radio" name="rush-job-option" value="2.5" data-label="งานเร่งภายใน 1-2 วัน (x2.5)" onchange="calculateTotal()" class="hidden peer">
+                        <div class="peer-checked:text-amber-400 peer-checked:font-bold text-xs py-1">
+                            <span class="block text-slate-300 peer-checked:text-amber-400">ภายใน 1-2 วัน</span>
+                            <span class="text-[11px] text-amber-400 font-bold">x2.5</span>
+                        </div>
+                    </label>
+
+                    <label class="glass-card p-2.5 rounded-xl cursor-pointer border border-slate-800 text-center block">
+                        <input type="radio" name="rush-job-option" value="3" data-label="งานเร่งภายในวันที่สั่ง (x3)" onchange="calculateTotal()" class="hidden peer">
+                        <div class="peer-checked:text-amber-400 peer-checked:font-bold text-xs py-1">
+                            <span class="block text-slate-300 peer-checked:text-amber-400">ภายในวันที่สั่ง</span>
+                            <span class="text-[11px] text-amber-400 font-bold">x3</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Right Summary Sidebar (Column 3) -->
+        <section class="lg:col-span-3">
+            <div class="sticky top-20 glass-panel rounded-2xl p-4 md:p-5 border border-brand-500/30 space-y-4">
+                <div class="border-b border-slate-800 pb-2.5 flex justify-between items-center">
+                    <h3 class="font-bold text-lg text-white flex items-center">
+                        <i class="fa-solid fa-receipt text-brand-cyan mr-2"></i> สรุปคำสั่งซื้อ
+                    </h3>
+                    <span class="text-xs bg-brand-500/20 text-brand-cyan border border-brand-cyan/30 px-2.5 py-0.5 rounded-full font-semibold">Dashboard</span>
+                </div>
+
+                <div id="summary-list" class="max-h-52 overflow-y-auto space-y-2 pr-1 text-sm">
+                    <div class="text-slate-500 text-center py-4">ยังไม่ได้เลือกรายการ</div>
+                </div>
+
+                <div class="bg-slate-900/90 rounded-xl p-3.5 border border-slate-800 space-y-1.5">
+                    <div class="flex justify-between text-xs text-slate-400">
+                        <span>ยอดรวมทั้งหมด</span>
+                        <span id="items-count-display">0 รายการ</span>
+                    </div>
+                    <div class="flex justify-between items-baseline">
+                        <span class="text-sm text-slate-400 font-medium">ราคาสุทธิ:</span>
+                        <span id="grand-total" class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-500 glow-text">0 ฿</span>
+                    </div>
+                </div>
+
+                <!-- ปุ่มคัดลอกออเดอร์แจ้งแอดมิน -->
+                <button onclick="copyOrderDetails()" class="w-full py-3 bg-gradient-to-r from-brand-500 to-brand-cyan hover:from-brand-600 hover:to-brand-500 text-white font-bold rounded-xl shadow-lg glow-btn flex items-center justify-center space-x-2 text-sm transition">
+                    <i class="fa-solid fa-copy text-lg"></i>
+                    <span>คัดลอกออเดอร์แจ้งแอดมิน</span>
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal คำแนะนำหลังคัดลอกออเดอร์ & ปุ่มกดไปเปิด Ticket สั่งซื้อ -->
+    <div id="payment-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-md rounded-2xl p-6 border border-brand-500/30 space-y-4 relative">
+            <button onclick="toggleModal('payment-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="text-center space-y-1">
+                <h3 class="text-xl font-bold text-white flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-circle-check text-emerald-400"></i> คัดลอกบรีฟออเดอร์สำเร็จ!
+                </h3>
+                <p class="text-sm text-slate-400">ขั้นตอนการส่งคำสั่งซื้อและชำระเงินกับทางร้าน</p>
+            </div>
+
+            <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-center space-y-2">
+                <img src="727_20261028220707.jpg" alt="Yumepay QR Code" id="yumepay-card-img" class="mx-auto rounded-lg max-h-56 object-contain shadow-lg border border-slate-700" 
+                     onerror="this.src='https://i.imgur.com/your_image_link.jpg';">
+                <p class="text-xs text-slate-400">Wallet / PromptPay: <span class="text-brand-cyan font-bold">084-475-3937</span> (Krittayakorn P)</p>
+            </div>
+
+            <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 text-sm text-slate-300 space-y-2 leading-relaxed">
+                <p class="font-bold text-brand-cyan text-base">📌 ขั้นตอนการสั่งซื้อ:</p>
+                <p>1. กดปุ่มด้านล่างเพื่อไปที่ห้อง Discord แล้ว **เปิด Ticket** สั่งซื้อ</p>
+                <p>2. ส่งข้อความบรีฟที่คัดลอกไว้ให้แอดมิน</p>
+                <p>3. โอนเงินชำระค่าบริการตามยอดสุทธิ และส่งสลิปใน Ticket ได้เลยครับ!</p>
+            </div>
+
+            <div class="text-center">
+                <span class="text-xs text-slate-400">ยอดเงินที่ต้องชำระ:</span>
+                <div id="modal-pay-amount" class="text-3xl font-bold text-brand-cyan">0 ฿</div>
+            </div>
+
+            <a href="https://discord.gg/your-discord-invite" target="_blank" class="w-full py-3.5 bg-gradient-to-r from-brand-500 to-brand-cyan hover:from-brand-600 hover:to-brand-500 text-white font-bold rounded-xl shadow-lg text-sm transition flex items-center justify-center space-x-2">
+                <i class="fa-brands fa-discord text-lg"></i>
+                <span>กดเพื่อเปิด Ticket สั่งซื้อใน Discord</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Rules Modal -->
+    <div id="rules-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-md rounded-2xl p-6 border border-slate-800 space-y-4 relative">
+            <button onclick="toggleModal('rules-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-lg font-bold text-brand-cyan flex items-center">
+                <i class="fa-solid fa-scroll mr-2"></i> กฎและข้อตกลงของร้าน
+            </h3>
+            <div class="text-sm text-slate-300 space-y-2.5 leading-relaxed bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                <p>— 💳 รับโอนผ่านวอเลท หรือ ธนาคาร</p>
+                <p>— ⚡ รับงานเร่งคิดตามตัวคูณระยะเวลา</p>
+            </div>
+            <button onclick="toggleModal('rules-modal')" class="w-full py-2.5 bg-slate-800 text-slate-200 text-sm font-semibold rounded-xl">เข้าใจและยอมรับ</button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 glass-panel border border-brand-cyan/50 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center space-x-2.5 translate-y-20 opacity-0 transition-all duration-300">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toast-message" class="text-sm font-medium">ข้อความแจ้งเตือน</span>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        function switchTab(zoneId) {
+            document.querySelectorAll('.zone-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+            document.getElementById(zoneId).classList.remove('hidden');
+            document.getElementById(`tab-${zoneId}`).classList.add('active');
+        }
+
+        const PRICE_TABLE = {
+            64:   { full: 50,  head: 20,  outfit: 40 },
+            128:  { full: 150, head: 50,  outfit: 80 },
+            512:  { full: 200, head: 90,  outfit: 150 },
+            1024: { full: 250, head: 120, outfit: 200 }
+        };
+
+        let state = {
+            ranges: { horn: 0, cape: 0, wing: 0 },
+            weapons: { gun: 0, sword: 0, spear: 0, bow: 0 },
+            serviceQty: { photo: 0, video: 0 },
+            grandTotal: 0,
+            rawSummaryText: ''
+        };
+
+        function toggleModal(id) { document.getElementById(id).classList.toggle('hidden'); }
+
+        function showToast(msg, isError = false) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').innerText = msg;
+            document.getElementById('toast-icon').className = isError ? 'fa-solid fa-circle-xmark text-rose-500' : 'fa-solid fa-circle-check text-emerald-400';
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 3000);
+        }
+
+        function changeSkinQty(idSuffix, delta) {
+            const input = document.getElementById(`qty-${idSuffix}`);
+            if (input) {
+                const currentVal = parseInt(input.value) || 0;
+                input.value = Math.max(0, currentVal + delta);
+                calculateTotal();
+            }
+        }
+
+        function updateRangePrice(key, val, [min, max]) {
+            const value = parseInt(val);
+            const valDisplay = document.getElementById(`${key}-price-val`);
+            if (value === 0) {
+                state.ranges[key] = 0;
+                valDisplay.innerText = 'ปิดใช้งาน';
+            } else {
+                const finalPrice = Math.max(value, min);
+                state.ranges[key] = finalPrice;
+                valDisplay.innerText = `${finalPrice} ฿`;
+            }
+            calculateTotal();
+        }
+
+        function updateWeaponPrice(key, val, [min, max]) {
+            const value = parseInt(val);
+            const valDisplay = document.getElementById(`${key}-val`);
+            if (value === 0) {
+                state.weapons[key] = 0;
+                valDisplay.innerText = 'ปิดใช้งาน';
+            } else {
+                const finalPrice = Math.max(value, min);
+                state.weapons[key] = finalPrice;
+                valDisplay.innerText = `${finalPrice} ฿`;
+            }
+            calculateTotal();
+        }
+
+        function changeQty(type, delta) {
+            state.serviceQty[type] = Math.max(0, state.serviceQty[type] + delta);
+            document.getElementById(`${type}-qty`).innerText = state.serviceQty[type];
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            let subtotal = 0;
+            let itemListHTML = '';
+            let rawTextList = [];
+            let itemCount = 0;
+
+            const scales = [64, 128, 512, 1024];
+            const parts = ['full', 'head', 'outfit'];
+            const partNames = { full: 'เต็มตัว', head: 'แค่ส่วนหัว', outfit: 'แค่ส่วนชุด' };
+
+            scales.forEach(scale => {
+                parts.forEach(part => {
+                    const input = document.getElementById(`qty-${scale}-${part}`);
+                    const qty = input ? parseInt(input.value) || 0 : 0;
+                    if (qty > 0) {
+                        const itemCost = PRICE_TABLE[scale][part] * qty;
+                        subtotal += itemCost;
+                        itemCount += qty;
+                        itemListHTML += `<div class="flex justify-between py-1 border-b border-slate-800/50"><span>Skin ${scale}x (${partNames[part]}) x${qty}</span><span class="text-brand-cyan font-medium">${itemCost} ฿</span></div>`;
+                        rawTextList.push(`- สกิน Scale ${scale}x (${partNames[part]}): ${qty} ชิ้น (${itemCost} ฿)`);
+                    }
+                });
+            });
+
+            document.querySelectorAll('.addon-check:checked').forEach(cb => {
+                const name = cb.getAttribute('data-name');
+                const price = parseInt(cb.getAttribute('data-price'));
+                subtotal += price;
+                itemCount++;
+                itemListHTML += `<div class="flex justify-between py-1 border-b border-slate-800/50"><span>${name}</span><span class="text-brand-cyan font-medium">${price} ฿</span></div>`;
+                rawTextList.push(`- ${name}: ${price} ฿`);
+            });
+
+            const rangeLabels = { horn: 'เขา (Figura)', cape: 'ผ้าคลุม (Figura)', wing: 'ปีก (Figura)' };
+            Object.keys(state.ranges).forEach(key => {
+                if (state.ranges[key] > 0) {
+                    subtotal += state.ranges[key];
+                    itemCount++;
+                    itemListHTML += `<div class="flex justify-between py-1 border-b border-slate-800/50"><span>${rangeLabels[key]}</span><span class="text-brand-cyan font-medium">${state.ranges[key]} ฿</span></div>`;
+                    rawTextList.push(`- ${rangeLabels[key]}: ${state.ranges[key]} ฿`);
+                }
+            });
+
+            const weaponLabels = { gun: 'อาวุธปืน', sword: 'ดาบ', spear: 'หอก', bow: 'ธนู' };
+            Object.keys(state.weapons).forEach(key => {
+                if (state.weapons[key] > 0) {
+                    subtotal += state.weapons[key];
+                    itemCount++;
+                    itemListHTML += `<div class="flex justify-between py-1 border-b border-slate-800/50"><span>${weaponLabels[key]}</span><span class="text-brand-cyan font-medium">${state.weapons[key]} ฿</span></div>`;
+                    rawTextList.push(`- ${weaponLabels[key]}: ${state.weapons[key]} ฿`);
+                }
+            });
+
+            if (state.serviceQty.photo > 0) {
+                const cost = state.serviceQty.photo * 5;
+                subtotal += cost;
+                itemCount++;
+                itemListHTML += `<div class="flex justify-between py-1 border-b border-slate-800/50"><span>ถ่ายภาพ (${state.serviceQty.photo} รูป)</span><span class="text-brand-cyan font-medium">${cost} ฿</span></div>`;
+                rawTextList.push(`- ถ่ายภาพ (${state.serviceQty.photo} รูป): ${cost} ฿`);
+            }
+            if (state.serviceQty.video > 0) {
+                const cost = state.serviceQty.video * 10;
+                subtotal += cost;
+                itemCount++;
+                itemListHTML += `<div class="flex justify-between py-1 border-b border-slate-800/50"><span>ถ่ายคลิป (${state.serviceQty.video} คลิป)</span><span class="text-brand-cyan font-medium">${cost} ฿</span></div>`;
+                rawTextList.push(`- ถ่ายคลิป (${state.serviceQty.video} คลิป): ${cost} ฿`);
+            }
+
+            // คำนวณตามตัวคูณงานเร่ง
+            const selectedRushOption = document.querySelector('input[name="rush-job-option"]:checked');
+            const rushMultiplier = selectedRushOption ? parseFloat(selectedRushOption.value) : 1;
+            const rushLabel = selectedRushOption ? selectedRushOption.getAttribute('data-label') : '';
+
+            let finalTotal = subtotal * rushMultiplier;
+
+            if (rushMultiplier > 1 && subtotal > 0) {
+                itemListHTML += `<div class="flex justify-between py-1 border-b border-slate-800/50 text-amber-400 font-semibold"><span>⚡ ${rushLabel}</span><span>x${rushMultiplier}</span></div>`;
+                rawTextList.push(`- ⚡ ${rushLabel}`);
+            }
+
+            document.getElementById('summary-list').innerHTML = itemListHTML || `<div class="text-slate-500 text-center py-4">ยังไม่ได้เลือกรายการ</div>`;
+            document.getElementById('grand-total').innerText = `${finalTotal} ฿`;
+            document.getElementById('items-count-display').innerText = `${itemCount} รายการ`;
+            state.grandTotal = finalTotal;
+            state.rawSummaryText = rawTextList.join('\n');
+        }
+
+        function copyOrderDetails() {
+            if (!state.grandTotal || state.grandTotal <= 0) {
+                showToast('กรุณาเลือกรายการสินค้าก่อนคัดลอกออเดอร์ครับ', true);
+                return;
+            }
+            const orderText = `🛒 **รายการสั่งทำ DORAKI SHOP**\n${state.rawSummaryText}\n------------------------\n💰 **ยอดรวมทั้งสิ้น:** ${state.grandTotal} บาท`;
+            
+            const tempInput = document.createElement('textarea');
+            tempInput.value = orderText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            
+            document.getElementById('modal-pay-amount').innerText = `${state.grandTotal} ฿`;
+            toggleModal('payment-modal');
+            showToast('คัดลอกบรีฟออเดอร์เรียบร้อยแล้ว!');
+        }
+
+        window.onload = function() { calculateTotal(); }
+    </script>
+</body>
+</html>
